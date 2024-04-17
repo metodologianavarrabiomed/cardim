@@ -36,6 +36,16 @@
 #'   smoking_status_ex_smoker = 0
 #' )
 predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment, log_albtocreatratio, non_hdl, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, pulse_pressure, retinopathy, smoking_status_smoker, smoking_status_ex_smoker) {
+  args <- match.call() |> as.list() |> names()
+
+  # test that all parameters are numeric
+  are_numeric <- sapply(args[-1],\(v, envir) is.numeric(get(v, envir)), envir = environment())
+  stopifnot("all parameters must be numeric" = all(are_numeric))
+
+  # test that variables are dichotomous
+  dichotomous_variables <- c("hypertension_treatment", "income_less_18000", "physical_activity_inactive", "physical_activity_partially_active", "previous_atrial_f", "retinopathy", "smoking_status_smoker", "smoking_status_ex_smoker")
+  are_dichotomous <- sapply(dichotomous_variables, function(v, envir) get(v, envir) == 0 || get(v, envir) == 1, envir = environment())
+  stopifnot("hypertension_treatment, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, retinopathy, smoking_status_smoker, smoking_status_ex_smoker must be 0 or 1" = all(are_dichotomous))
   # firstly we center the values with their mean
   mean_values <- list(age = 55.269, diabetes_duration = 7.048, hba1c = 6.962, hypertension_treatment = 0.526, log_albtocreatratio = 2.073, non_hdl = 3.722, income_less_18000 = 0.573, physical_activity_inactive = 0.671, physical_activity_partially_active = 0.246, previous_atrial_f = 0.05, pulse_pressure = 56.463, retinopathy = 0.151, smoking_status_smoker = 0.333, smoking_status_ex_smoker = 0.318)
 
@@ -60,14 +70,5 @@ predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment,
     ((age - mean_values[["age"]]) * (smoking_status_ex_smoker - mean_values[["smoking_status_ex_smoker"]]) * model_coefficients[["age_smoking_status_ex_smoker"]]) +
     ((age - mean_values[["age"]]) * (smoking_status_smoker - mean_values[["smoking_status_smoker"]]) * model_coefficients[["age_smoking_status_smoker"]])
 
-  # print(((age - mean_values[["age"]]) * (smoking_status_ex_smoker - mean_values[["smoking_status_ex_smoker"]]) * model_coefficients[["age_smoking_status_ex_smoker"]]))
-  # print((age - mean_values[["age"]]))
-  # print((smoking_status_ex_smoker - mean_values[["smoking_status_ex_smoker"]]))
-  # print(model_coefficients[["age_smoking_status_ex_smoker"]])
-
-  print(((age - mean_values[["age"]]) * (smoking_status_smoker - mean_values[["smoking_status_smoker"]]) * model_coefficients[["age_smoking_status_smoker"]]))
-  print((age - mean_values[["age"]]))
-  print((smoking_status_smoker - mean_values[["smoking_status_smoker"]]))
-  print(model_coefficients[["age_smoking_status_smoker"]])
   return(1 - 0.9429132^exp(betax))
 }
