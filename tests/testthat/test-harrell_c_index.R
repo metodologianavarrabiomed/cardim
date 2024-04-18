@@ -27,7 +27,7 @@ testthat::test_that("calculates the result properly", {
     n1 <- c(24, 138)[i]
     n0 <- c(62, 102)[i]
     y <- c(rep(0, n0), rep(1, n1))
-    deltas <- 3
+    d <- 3
     x <- c(rnorm(n0, 0), rnorm(n1, d))
     w <- Hmisc::rcorr.cens(x, y)
     w["C Index"]
