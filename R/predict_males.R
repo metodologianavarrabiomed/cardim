@@ -37,15 +37,26 @@
 #' )
 predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment, log_albtocreatratio, non_hdl, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, pulse_pressure, retinopathy, smoking_status_smoker, smoking_status_ex_smoker) {
   args <- match.call() |> as.list() |> names()
+  args <- args[-1]
 
   # test that all parameters are numeric
-  are_numeric <- sapply(args[-1],\(v, envir) is.numeric(get(v, envir)), envir = environment())
-  stopifnot("all parameters must be numeric" = all(are_numeric))
+  are_numeric <- sapply(args,\(v, envir) is.numeric(get(v, envir)), envir = environment())
+  if (!all(are_numeric)) {
+    not_numeric <- sapply(args[!are_numeric], \(x) paste("`", x, "`", sep = ""))
+    error_message <- cli::format_error(message = "{.pkg {not_numeric}} parameter{?s} must be numeric")
+    stop(error_message)
+  }
 
   # test that variables are dichotomous
   dichotomous_variables <- c("hypertension_treatment", "income_less_18000", "physical_activity_inactive", "physical_activity_partially_active", "previous_atrial_f", "retinopathy", "smoking_status_smoker", "smoking_status_ex_smoker")
   are_dichotomous <- sapply(dichotomous_variables, function(v, envir) all(get(v, envir) %in% c(0,1)), envir = environment())
-  stopifnot("hypertension_treatment, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, retinopathy, smoking_status_smoker, smoking_status_ex_smoker must be 0 or 1" = all(are_dichotomous))
+  if(!all(are_dichotomous)) {
+    not_dichotomous <- sapply(dichotomous_variables[!are_dichotomous], \(x) paste("`", x, "`", sep = ""))
+    error_message <- cli::format_error(message = "{.pkg {not_dichotomous}} parameter{?s} must be dichotomous")
+    stop(error_message)
+  }
+  # stopifnot("hypertension_treatment, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, retinopathy, smoking_status_smoker, smoking_status_ex_smoker must be 0 or 1" = all(are_dichotomous))
+
   # firstly we center the values with their mean
   mean_values <- list(age = 55.269, diabetes_duration = 7.048, hba1c = 6.962, hypertension_treatment = 0.526, log_albtocreatratio = 2.073, non_hdl = 3.722, income_less_18000 = 0.573, physical_activity_inactive = 0.671, physical_activity_partially_active = 0.246, previous_atrial_f = 0.05, pulse_pressure = 56.463, retinopathy = 0.151, smoking_status_smoker = 0.333, smoking_status_ex_smoker = 0.318)
 
