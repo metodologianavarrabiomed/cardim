@@ -44,7 +44,7 @@ predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment,
 
   # test that variables are dichotomous
   dichotomous_variables <- c("hypertension_treatment", "income_less_18000", "physical_activity_inactive", "physical_activity_partially_active", "previous_atrial_f", "retinopathy", "smoking_status_smoker", "smoking_status_ex_smoker")
-  are_dichotomous <- sapply(dichotomous_variables, function(v, envir) get(v, envir) == 0 || get(v, envir) == 1, envir = environment())
+  are_dichotomous <- sapply(dichotomous_variables, function(v, envir) all(get(v, envir) %in% c(0,1)), envir = environment())
   stopifnot("hypertension_treatment, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, retinopathy, smoking_status_smoker, smoking_status_ex_smoker must be 0 or 1" = all(are_dichotomous))
   # firstly we center the values with their mean
   mean_values <- list(age = 55.269, diabetes_duration = 7.048, hba1c = 6.962, hypertension_treatment = 0.526, log_albtocreatratio = 2.073, non_hdl = 3.722, income_less_18000 = 0.573, physical_activity_inactive = 0.671, physical_activity_partially_active = 0.246, previous_atrial_f = 0.05, pulse_pressure = 56.463, retinopathy = 0.151, smoking_status_smoker = 0.333, smoking_status_ex_smoker = 0.318)
