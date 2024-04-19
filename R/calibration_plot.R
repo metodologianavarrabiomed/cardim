@@ -1,4 +1,17 @@
-#' generates the calibration plot for the given data.
+#' @title
+#' Calibration plot
+#'
+#' @description
+#' Generates the calibration plot for the given data. A calibration plot is a representation
+#' of the predicted risk vs the observed. In survival analysis there is no observed risk in each
+#' of the patients, we only know if they suffer an event or not.
+#'
+#' To estimate the observed risk this function group the patients by the estimated risk. Once they
+#' are grouped we can estimate the observed risk in each group using a Kaplan-Meier estimator.
+#' Finally we can plot the results, the mean of the predicted risk and the observed risk in each of
+#' the groups. If the points are below the bisecting line means that the model is overpredicting.
+#' On the other hand, if the points are above the bisecting line means that the model is
+#' underpredicting.
 #'
 #' @param data `tibble` or `data.frame` that contains the predicted values in a variable called `pred` and the survival object in a variable called `surv`. The survival outcome object must be created with the package `survival`
 #'
