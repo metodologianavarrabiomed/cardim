@@ -1,39 +1,52 @@
-#' calculates the cardim model prediction for males given the needed parameters
+#' @title
+#' calculates the cardim males model prediction
+#'
+#' @description
+#' calculates the model prediction for the given parameters. The risk predictions
+#' are calculated as follows.
+#'
+#' \deqn{
+#' \text{prediction} = 1 - S_0(t)^{exp(\beta X)}
+#' }
+#'
+#' where \eqn{\beta} is the model coefficients and \eqn{S_0(t)} is \eqn{1 - \lambda_0(t)} that
+#' is the cumulative incidence at the time \eqn{t}.
 #'
 #' @param age Age in years
 #' @param diabetes_duration Diabetes duration in years
-#' @param hba1c HbA1c in %
+#' @param hba1c HbA1c in \%
 #' @param hypertension_treatment if the patient has an active hypertension treatment at baseline, 1 = yes, 0 = no
 #' @param log_albtocreatratio logarithm of the albumine creatinine ratio in log(mg/g)
-#' @param non_hdl $total cholesterol - hdl cholesterol$ in mmol/L
+#' @param non_hdl \eqn{\text{total cholesterol} - \text{hdl cholesterol}} in mmol/L
 #' @param income_less_18000 if the patient is in the category `income_less_18000`, 1 = yes, 0 = no
 #' @param physical_activity_inactive if the patient is in the category `inactive`, 1 = yes, 0 = no
 #' @param physical_activity_partially_active if the patient is in the category `partially_inactive`, 1 = yes , 0 = no
 #' @param previous_atrial_f if the patient had atrial fibrillation at baseline, 1 = yes, 0 = no
-#' @param pulse_pressure $systolic blood pressure - diastolic blood pressure$ in mmHg
+#' @param pulse_pressure \eqn{\text{systolic blood pressure} - \text{diastolic blood pressure}} in mmHg
 #' @param retinopathy if the patient had retinopathy at baseline, 1 = yes, 0 = no
 #' @param smoking_status_smoker if the patient is in the category `smoker`, 1 = yes, 0 = no
 #' @param smoking_status_ex_smoker if the patient is in the category `ex-smoker`, 1 = yes, 0 = no
 #'
 #' @return model prediction for the given parameters
+#'
 #' @export
 #'
 #' @examples
 #' predict_males(
-#'   age = 71,
-#'   diabetes_duration = 24,
-#'   hba1c = 9.9,
-#'   hypertension_treatment = 1,
-#'   log_albtocreatratio = 4.577,
-#'   non_hdl = 2.793,
-#'   income_less_18000 = 1,
-#'   physical_activity_inactive = 0,
-#'   physical_activity_partially_active = 0,
-#'   previous_atrial_f = 0,
-#'   pulse_pressure = 67,
-#'   retinopathy = 1,
-#'   smoking_status_smoker = 0,
-#'   smoking_status_ex_smoker = 0
+#'    age = 71,
+#'    diabetes_duration = 24,
+#'    hba1c = 9.9,
+#'    hypertension_treatment = 1,
+#'    log_albtocreatratio = 4.577,
+#'    non_hdl = 2.793,
+#'    income_less_18000 = 1,
+#'    physical_activity_inactive = 0,
+#'    physical_activity_partially_active = 0,
+#'    previous_atrial_f = 0,
+#'    pulse_pressure = 67,
+#'    retinopathy = 1,
+#'    smoking_status_smoker = 0,
+#'    smoking_status_ex_smoker = 0
 #' )
 predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment, log_albtocreatratio, non_hdl, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, pulse_pressure, retinopathy, smoking_status_smoker, smoking_status_ex_smoker) {
   args <- match.call() |>
