@@ -1,4 +1,9 @@
-#' predicts the cardim model predictions for the given data
+#' @title
+#' calculates the cardim model predictions
+#'
+#' @description
+#' Calculates the cardim model predictions by using the [predict_males()] and [predict_females()] functions.
+#'
 #'
 #' @param data `data.frame` or `tibble` where all the patients data is stored
 #'
