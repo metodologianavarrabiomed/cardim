@@ -1,12 +1,15 @@
 Package: cardim
 Type: Package
-Title: What the Package Does (Title Case)
+Title: CARDIM-model tools for prediction
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Asier Ballesteros Domínguez
+Maintainer: Methodoloy unit of Navarrabiomed <metodologia.navarrabiomed@navarra.es>
+Description: This package is a set of tools that allow the user to properly predict
+    the cardiovascular risk of new patients using the CARDIM-model definition.
+    Even more it have tools to obtain the external validation results. 
+    The discrimination is calculated witht he Harrell's c-index and 
+    the calibration with calibration plots.
+License: CC BY 4.0
 Encoding: UTF-8
 LazyData: true
 Suggests: 
@@ -20,3 +23,8 @@ Imports:
     Hmisc,
     survival,
     tibble
+Authors@R: c(
+    person("Asier", "Ballesteros Domínguez", , "asier.ballesteros.dominguez@navarra.es", role = c("aut", "ctb"),
+           comment = c(ORCID = "0000-0002-2195-4669")),
+    person("Methodology unit", "Navarrabiomed", role = c("cre", "fnd", "rev"))
+  )
