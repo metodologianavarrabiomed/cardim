@@ -8,15 +8,15 @@ testthat::test_that("tests the parameters", {
 
   expect_no_error(harrell_c_index(test_data))
   expect_no_error(harrell_c_index(test_data |> as.data.frame()))
-  expect_error(harrell_c_index("error"), "must be a `data.frame` or a `tibble`")
+  expect_error(harrell_c_index("error"), "the variable \\`data\\` must inherit from \\`data.frame\\`")
 
   test_data_bad_pred <- test_data
   test_data_bad_pred$pred <- as.character(test_data_bad_pred$pred)
-  expect_error(harrell_c_index(test_data_bad_pred), "`pred` must be numeric")
+  expect_error(harrell_c_index(test_data_bad_pred), "\\`pred\\` variable must be numeric")
 
   test_data_bad_surv <- test_data
   test_data_bad_surv$surv <- as.character(test_data_bad_surv$surv)
-  expect_error(harrell_c_index(test_data_bad_surv), "`surv` must be Surv")
+  expect_error(harrell_c_index(test_data_bad_surv), "\\`surv\\` variable must inherits from Surv")
 })
 
 testthat::test_that("calculates the result properly", {
@@ -27,7 +27,7 @@ testthat::test_that("calculates the result properly", {
     n1 <- c(24, 138)[i]
     n0 <- c(62, 102)[i]
     y <- c(rep(0, n0), rep(1, n1))
-    deltas <- 3
+    d <- 3
     x <- c(rnorm(n0, 0), rnorm(n1, d))
     w <- Hmisc::rcorr.cens(x, y)
     w["C Index"]

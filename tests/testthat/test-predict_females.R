@@ -44,7 +44,7 @@ testthat::test_that("checks the type of the `age` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`age` parameter must be numeric"
   )
 })
 
@@ -68,7 +68,7 @@ testthat::test_that("checks the type of the `diabetes_duration` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`diabetes_duration` parameter must be numeric"
   )
 })
 
@@ -92,7 +92,7 @@ testthat::test_that("checks the type of the `hba1c` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`hba1c` parameter must be numeric"
   )
 })
 
@@ -116,7 +116,7 @@ testthat::test_that("checks the type of the `hypertension_treatment` variable", 
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`hypertension_treatment` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -135,7 +135,7 @@ testthat::test_that("checks the type of the `hypertension_treatment` variable", 
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`hypertension_treatment` parameter must be dichotomous"
   )
 })
 
@@ -159,7 +159,7 @@ testthat::test_that("checks the type of the `log_albtocreatratio` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`log_albtocreatratio` parameter must be numeric"
   )
 })
 
@@ -183,7 +183,7 @@ testthat::test_that("checks the type of the `non_hdl` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`non_hdl` parameter must be numeric"
   )
 })
 
@@ -207,7 +207,7 @@ testthat::test_that("checks the type of the `income_less_18000` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`income_less_18000` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -226,7 +226,7 @@ testthat::test_that("checks the type of the `income_less_18000` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`income_less_18000` parameter must be dichotomous"
   )
 })
 
@@ -250,7 +250,7 @@ testthat::test_that("checks the type of the `physical_activity_inactive` variabl
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`physical_activity_inactive` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -269,7 +269,7 @@ testthat::test_that("checks the type of the `physical_activity_inactive` variabl
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`physical_activity_inactive` parameter must be dichotomous"
   )
 })
 
@@ -293,7 +293,7 @@ testthat::test_that("checks the type of the `physical_activity_partially_active`
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`physical_activity_partially_active` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -312,7 +312,7 @@ testthat::test_that("checks the type of the `physical_activity_partially_active`
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`physical_activity_partially_active` parameter must be dichotomous"
   )
 })
 
@@ -336,7 +336,7 @@ testthat::test_that("checks the type of the `previous_atrial_f` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`previous_atrial_f` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -355,11 +355,11 @@ testthat::test_that("checks the type of the `previous_atrial_f` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`previous_atrial_f` parameter must be dichotomous"
   )
 })
 
-testthat::test_that("checks the type of the `puls_pressure` variable", {
+testthat::test_that("checks the type of the `pulse_pressure` variable", {
   data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
   female <- data[3, ]
 
@@ -379,7 +379,7 @@ testthat::test_that("checks the type of the `puls_pressure` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`pulse_pressure` parameter must be numeric"
   )
 })
 
@@ -403,7 +403,7 @@ testthat::test_that("checks the type of the `retinopathy` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`retinopathy` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -422,7 +422,7 @@ testthat::test_that("checks the type of the `retinopathy` variable", {
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`retinopathy` parameter must be dichotomous"
   )
 })
 
@@ -446,7 +446,7 @@ testthat::test_that("checks the type of the `smoking_status_smoker` variable", {
     smoking_status_smoker = as.character(female$smoking_status_smoker),
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "all parameters must be numeric"
+  "`smoking_status_smoker` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -465,7 +465,7 @@ testthat::test_that("checks the type of the `smoking_status_smoker` variable", {
     smoking_status_smoker = 2,
     smoking_status_ex_smoker = female$smoking_status_ex_smoker
   ),
-  "must be 0 or 1"
+  "`smoking_status_smoker` parameter must be dichotomous"
   )
 })
 
@@ -489,7 +489,7 @@ testthat::test_that("checks the type of the `smoking_status_ex_smoker` variable"
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = as.character(female$smoking_status_ex_smoker)
   ),
-  "all parameters must be numeric"
+  "`smoking_status_ex_smoker` parameter must be numeric"
   )
 
   testthat::expect_error(prediction <- predict_females(
@@ -508,6 +508,54 @@ testthat::test_that("checks the type of the `smoking_status_ex_smoker` variable"
     smoking_status_smoker = female$smoking_status_smoker,
     smoking_status_ex_smoker = 2
   ),
-  "must be 0 or 1"
+  "`smoking_status_ex_smoker` parameter must be dichotomous"
+  )
+})
+
+testthat::test_that("checks multiple non-numeric variables", {
+  data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
+  female <- data[3, ]
+
+  testthat::expect_error(prediction <- predict_females(
+    age = as.character(female$age),
+    diabetes_duration = female$diabetes_duration,
+    hba1c = female$hba1c,
+    hypertension_treatment = female$hypertension_treatment,
+    log_albtocreatratio = female$log_albtocreatratio,
+    non_hdl = as.character(female$non_hdl),
+    income_less_18000 = female$income_less_18000,
+    physical_activity_inactive = female$physical_activity_inactive,
+    physical_activity_partially_active = female$physical_activity_partially_active,
+    previous_atrial_f = female$previous_atrial_f,
+    pulse_pressure = as.character(female$pulse_pressure),
+    retinopathy = female$retinopathy,
+    smoking_status_smoker = female$smoking_status_smoker,
+    smoking_status_ex_smoker = female$smoking_status_ex_smoker
+  ),
+  "`age`, `non_hdl`, and `pulse_pressure` parameters must be numeric"
+  )
+})
+
+testthat::test_that("checks multiple non-dichotomous variables", {
+  data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
+  female <- data[3, ]
+
+  testthat::expect_error(prediction <- predict_females(
+    age = female$age,
+    diabetes_duration = female$diabetes_duration,
+    hba1c = female$hba1c,
+    hypertension_treatment = 5,
+    log_albtocreatratio = female$log_albtocreatratio,
+    non_hdl = female$non_hdl,
+    income_less_18000 = 5,
+    physical_activity_inactive = female$physical_activity_inactive,
+    physical_activity_partially_active = female$physical_activity_partially_active,
+    previous_atrial_f = 5,
+    pulse_pressure = female$pulse_pressure,
+    retinopathy = female$retinopathy,
+    smoking_status_smoker = female$smoking_status_smoker,
+    smoking_status_ex_smoker = female$smoking_status_ex_smoker
+  ),
+  "`hypertension_treatment`, `income_less_18000`, and `previous_atrial_f` parameters must be dichotomous"
   )
 })
