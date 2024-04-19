@@ -19,9 +19,22 @@ predicts the cardim model predictions for the given data
 
 predict(
   tibble::tibble(
-    id = 1,
-    age = 50,
-    sex = "Male"
+  id = c(1,2,3),
+  sex = c("Male", "Female", "Female"),
+  age = c(60, 65, 45),
+  diabetes_duration = c(6, 10, 2),
+  hba1c = c(9.8, 6.7, 8.5),
+  hypertension_treatment = c(1, 1, 0),
+  income_less_18000 = c(1, 1, 1),
+  log_albtocreatratio = c(2.25, 1.84, 2.36),
+  non_hdl = c(3.95, 4.3, 3.4),
+  pulse_pressure = c(70, 74, 65),
+  physical_activity_inactive = c(0, 0, 0),
+  physical_activity_partially_active = c(1, 0, 1),
+  previous_atrial_f = c(0, 0, 0),
+  retinopathy = c(1, 1, 0),
+  smoking_status_smoker = c(0, 0, 1),
+  smoking_status_ex_smoker = c(0, 0, 0)
   )
 )
 }
