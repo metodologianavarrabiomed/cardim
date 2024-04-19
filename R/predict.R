@@ -73,7 +73,6 @@ predict <- function(data) {
     vector_of_errors <- sapply(variable_validators[!is_error_type], \(x) x$error_message)
     errors <- c("x" = cli::format_message("{sum(!is_error_type)} argument{?s} do{?es/} not have the properly type"))
     names(vector_of_errors) <- rep("*", sum(!is_error_type))
-    # cli::cli_abort(vector_of_errors)
     cli::cli_abort(c(errors, vector_of_errors))
   }
 
