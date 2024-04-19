@@ -15,11 +15,47 @@ harrell_c_index <- function(data) {
   # the harrell's c-index
 
   # test variable types
-  stopifnot("`data` must be a `data.frame` or a `tibble`" = inherits(data, "data.frame"))
-  stopifnot("`pred` must be a variable in `data`" = "pred" %in% names(data))
-  stopifnot("`pred` must be numeric" = is.numeric(data$pred))
-  stopifnot("`surv` must be a variable in `data`" = "surv" %in% names(data))
-  stopifnot("`surv` must be Surv" = inherits(data$surv, "Surv"))
+  if (!inherits(data, "data.frame")) {
+    cli::cli_abort(
+      c(
+        "the variable `data` must inherit from `data.frame`",
+        "i" = "it is expected to be a `data.frame` or a `tibble`"
+      )
+    )
+  }
+
+  df_var <- c("pred", "surv")
+  arg_in_data <- df_var %in% names(data)
+  if (!all(arg_in_data)) {
+    cli::cli_abort("{.arg {df_var[!arg_in_data]}} must be {?a/} variable{?s} of `data`")
+  }
+
+  variable_type_error <- NULL
+  bad_type <- 0
+
+  if (!is.numeric(data$pred)) {
+    bad_type <- bad_type + 1
+    variable_type_error <- c(variable_type_error, "*" = cli::format_error("{.arg pred} variable must be numeric"))
+  }
+
+  if (!inherits(data$surv, "Surv")) {
+    bad_type <- bad_type + 1
+    variable_type_error <- c(
+      variable_type_error,
+      c(
+        "*" = "{.arg surv} variable must inherits from Surv",
+        "i" = "{.arg surv} variable should be created using `survival::Surv` function"
+        )
+      )
+  }
+
+  if (!is.null(variable_type_error)) {
+    error_message <- c(
+      "{bad_type} argument{?s} do{?es/} not have the properly type",
+      variable_type_error
+    )
+    cli::cli_abort(error_message)
+  }
 
   # calculate the index
   return(Hmisc::rcorr.cens(data$pred, data$surv))
