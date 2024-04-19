@@ -10,6 +10,17 @@
 #' @export
 #'
 #' @examples
+#' set.seed(123)
+#' for (i in 1:2) {
+#'   n1 <- c(24, 138)[i]
+#'   n0 <- c(62, 102)[i]
+#'   y <- c(rep(0, n0), rep(1, n1))
+#'   times <- ifelse(y == 1, rnorm(2, 1), rnorm(4,1))
+#'   y <- survival::Surv(time = times, event = y)
+#'   d <- 3
+#'   x <- c(rnorm(n0, 0), rnorm(n1, d))
+#'   harrell_c_index(tibble::tibble(pred = x, surv = y))
+#' }
 harrell_c_index <- function(data) {
   # The data should contain pred and surv values for which is needed to calculate
   # the harrell's c-index

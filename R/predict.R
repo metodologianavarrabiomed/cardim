@@ -3,15 +3,32 @@
 #' @param data `data.frame` or `tibble` where all the patients data is stored
 #'
 #' @return cardim predictions
+#'
+#' @importFrom cli format_message cli_abort format_error
+#' @importFrom dplyr mutate select bind_rows left_join
+#'
 #' @export
 #'
 #' @examples
 #'
 #' predict(
 #'   tibble::tibble(
-#'     id = 1,
-#'     age = 50,
-#'     sex = "Male"
+#'   id = c(1,2,3),
+#'   sex = c("Male", "Female", "Female"),
+#'   age = c(60, 65, 45),
+#'   diabetes_duration = c(6, 10, 2),
+#'   hba1c = c(9.8, 6.7, 8.5),
+#'   hypertension_treatment = c(1, 1, 0),
+#'   income_less_18000 = c(1, 1, 1),
+#'   log_albtocreatratio = c(2.25, 1.84, 2.36),
+#'   non_hdl = c(3.95, 4.3, 3.4),
+#'   pulse_pressure = c(70, 74, 65),
+#'   physical_activity_inactive = c(0, 0, 0),
+#'   physical_activity_partially_active = c(1, 0, 1),
+#'   previous_atrial_f = c(0, 0, 0),
+#'   retinopathy = c(1, 1, 0),
+#'   smoking_status_smoker = c(0, 0, 1),
+#'   smoking_status_ex_smoker = c(0, 0, 0)
 #'   )
 #' )
 predict <- function(data) {
@@ -92,7 +109,7 @@ predict <- function(data) {
   data_females <- subset(data, data$sex == "Female")
 
   # calculate the predictions in males
-  pred_males <- data_males %>%
+  pred_males <- data_males |>
     dplyr::mutate(pred = predict_males(
       age = age,
       diabetes_duration = diabetes_duration,
@@ -108,11 +125,11 @@ predict <- function(data) {
       retinopathy = retinopathy,
       smoking_status_smoker = smoking_status_smoker,
       smoking_status_ex_smoker = smoking_status_ex_smoker
-    )) %>%
+    )) |>
     dplyr::select(id, pred)
 
   # calculate the prediction in females
-  pred_females <- data_females %>%
+  pred_females <- data_females |>
     dplyr::mutate(pred = predict_females(
       age = age,
       diabetes_duration = diabetes_duration,
@@ -128,12 +145,12 @@ predict <- function(data) {
       retinopathy = retinopathy,
       smoking_status_smoker = smoking_status_smoker,
       smoking_status_ex_smoker = smoking_status_ex_smoker
-    )) %>%
+    )) |>
     dplyr::select(id, pred)
 
   # merge males and females into one table
   pred_results <- dplyr::bind_rows(pred_females, pred_males)
 
   # returns the original data table with the predictions joined
-  return(data %>% dplyr::left_join(pred_results, by = "id"))
+  return(data |> dplyr::left_join(pred_results, by = "id"))
 }

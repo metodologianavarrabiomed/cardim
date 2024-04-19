@@ -7,8 +7,6 @@
 #' @importFrom tibble tibble
 #' @importFrom survival survfit Surv
 #' @export
-#'
-#' @examples
 calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
   # test variable types
   if (!inherits(data, "data.frame")) {
