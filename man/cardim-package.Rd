@@ -4,8 +4,17 @@
 \name{cardim-package}
 \alias{cardim}
 \alias{cardim-package}
-\title{cardim: What the Package Does (Title Case)}
+\title{cardim: CARDIM-model tools for prediction}
 \description{
-More about what it does (maybe more than one line) Use four spaces when indenting paragraphs within the Description.
+This package is a set of tools that allow the user to properly predict the cardiovascular risk of new patients using the CARDIM-model definition. Even more it have tools to obtain the external validation results. The discrimination is calculated witht he Harrell's c-index and the calibration with calibration plots.
+}
+\author{
+\strong{Maintainer}: Methodology unit Navarrabiomed [funder, reviewer]
+
+Authors:
+\itemize{
+  \item Asier Ballesteros Domínguez \email{asier.ballesteros.dominguez@navarra.es} (\href{https://orcid.org/0000-0002-2195-4669}{ORCID}) [contributor]
+}
+
 }
 \keyword{internal}
