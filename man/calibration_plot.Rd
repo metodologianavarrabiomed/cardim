@@ -2,7 +2,7 @@
 % Please edit documentation in R/calibration_plot.R
 \name{calibration_plot}
 \alias{calibration_plot}
-\title{generates the calibration plot for the given data.}
+\title{Calibration plot}
 \usage{
 calibration_plot(data, time = 5, n_bins = 10, xlim = 1, ylim = 1)
 }
@@ -13,5 +13,14 @@ calibration_plot(data, time = 5, n_bins = 10, xlim = 1, ylim = 1)
 a calibration plot for the given data
 }
 \description{
-generates the calibration plot for the given data.
+Generates the calibration plot for the given data. A calibration plot is a representation
+of the predicted risk vs the observed. In survival analysis there is no observed risk in each
+of the patients, we only know if they suffer an event or not.
+
+To estimate the observed risk this function group the patients by the estimated risk. Once they
+are grouped we can estimate the observed risk in each group using a Kaplan-Meier estimator.
+Finally we can plot the results, the mean of the predicted risk and the observed risk in each of
+the groups. If the points are below the bisecting line means that the model is overpredicting.
+On the other hand, if the points are above the bisecting line means that the model is
+underpredicting.
 }

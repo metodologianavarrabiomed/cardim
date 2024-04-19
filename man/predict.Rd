@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{predict}
 \alias{predict}
-\title{predicts the cardim model predictions for the given data}
+\title{calculates the cardim model predictions}
 \usage{
 predict(data)
 }
@@ -13,7 +13,7 @@ predict(data)
 cardim predictions
 }
 \description{
-predicts the cardim model predictions for the given data
+Calculates the cardim model predictions by using the [predict_males()] and [predict_females()] functions.
 }
 \examples{
 
