@@ -14,11 +14,17 @@
 #' underpredicting.
 #'
 #' @param data `tibble` or `data.frame` that contains the predicted values in a variable called `pred` and the survival object in a variable called `surv`. The survival outcome object must be created with the package `survival`
+#' @param time time for the observed risk estimation, should be the same of the predictions.
+#' @param n_bins number of groups in the calibration plot
+#' @param xlim limit in the x-axis
+#' @param ylim limit in the y-axis
 #'
 #' @return a calibration plot for the given data
+#'
 #' @importFrom dplyr group_by mutate n distinct arrange bind_rows
 #' @importFrom tibble tibble
 #' @importFrom survival survfit Surv
+#'
 #' @export
 calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
   # test variable types
@@ -68,19 +74,19 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
   df_deciles <- data.frame(predictions = data$pred, outcomes = data$surv[, "status"], time = time) %>%
     dplyr::mutate(bin = dplyr::ntile(predictions, n_bins))
 
-  df_predicted <- df_deciles %>%
-    dplyr::group_by(bin) %>%
+  df_predicted <- df_deciles |>
+    dplyr::group_by(bin) |>
     dplyr::mutate(
       n = dplyr::n(),
       bin_pred = mean(predictions, na.rm = TRUE),
       mean_bin_obs = mean(outcomes, na.rm = TRUE),
       se = sqrt((bin_pred * (1 - bin_pred)) / n)
-    ) %>%
-    dplyr::distinct(bin, n, bin_pred, se, mean_bin_obs) %>%
+    ) |>
+    dplyr::distinct(bin, n, bin_pred, se, mean_bin_obs) |>
     dplyr::arrange(bin)
 
-  df_observed <- df_deciles %>%
-    dplyr::group_by(bin) %>%
+  df_observed <- df_deciles |>
+    dplyr::group_by(bin) |>
     dplyr::group_map(~ {
       .x$surv_obj <- survival::Surv(.x$time, .x$outcomes)
       km <- survival::survfit(surv_obj ~ 1, data = .x)
@@ -92,7 +98,7 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
           se_observed = km$std.err[length(km$std.err)]
         )
       )
-    }) %>%
+    }) |>
     dplyr::bind_rows()
   out <- dplyr::left_join(df_predicted, df_observed, by = "bin")
   names(out) <- c("bin", "n", "predicted", "se", "mean_bin_obs", "observed", "se_observed")

@@ -8,6 +8,14 @@ calibration_plot(data, time = 5, n_bins = 10, xlim = 1, ylim = 1)
 }
 \arguments{
 \item{data}{`tibble` or `data.frame` that contains the predicted values in a variable called `pred` and the survival object in a variable called `surv`. The survival outcome object must be created with the package `survival`}
+
+\item{time}{time for the observed risk estimation, should be the same of the predictions.}
+
+\item{n_bins}{number of groups in the calibration plot}
+
+\item{xlim}{limit in the x-axis}
+
+\item{ylim}{limit in the y-axis}
 }
 \value{
 a calibration plot for the given data
