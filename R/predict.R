@@ -148,7 +148,8 @@ predict <- function(data) {
       pulse_pressure = data_males$pulse_pressure,
       retinopathy = data_males$retinopathy,
       smoking_status_smoker = data_males$smoking_status_smoker,
-      smoking_status_ex_smoker = data_males$smoking_status_ex_smoker
+      smoking_status_ex_smoker = data_males$smoking_status_ex_smoker,
+      .test_variables = FALSE
     )
 
   pred_males <- data_males |> dplyr::select(dplyr::all_of(c("id", "pred")))
@@ -167,7 +168,8 @@ predict <- function(data) {
       pulse_pressure = data_females$pulse_pressure,
       retinopathy = data_females$retinopathy,
       smoking_status_smoker = data_females$smoking_status_smoker,
-      smoking_status_ex_smoker = data_females$smoking_status_ex_smoker
+      smoking_status_ex_smoker = data_females$smoking_status_ex_smoker,
+      .test_variables = FALSE
     )
 
   pred_females <- data_females |> dplyr::select(dplyr::all_of(c("id", "pred")))
