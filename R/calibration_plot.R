@@ -21,7 +21,7 @@
 #'
 #' @return a calibration plot for the given data
 #'
-#' @importFrom dplyr group_by summarise n distinct arrange bind_rows
+#' @importFrom dplyr group_by_at group_map bind_rows
 #' @importFrom tibble tibble
 #' @importFrom survival survfit Surv
 #'
@@ -104,6 +104,7 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
       )
     }) |>
     dplyr::bind_rows()
+
   out <- dplyr::left_join(df_predicted, df_observed, by = "bin")
   names(out) <- c("bin", "predicted", "se", "mean_bin_obs", "observed", "se_observed")
 
