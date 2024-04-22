@@ -26,6 +26,7 @@
 #' @param retinopathy if the patient had retinopathy at baseline, 1 = yes, 0 = no
 #' @param smoking_status_smoker if the patient is in the category `smoker`, 1 = yes, 0 = no
 #' @param smoking_status_ex_smoker if the patient is in the category `ex-smoker`, 1 = yes, 0 = no
+#' @param .test_variables if the function should test the arguments type. (could lead to errors)
 #'
 #' @return model prediction for the given parameters
 #'
@@ -33,42 +34,44 @@
 #'
 #' @examples
 #' predict_males(
-#'    age = 71,
-#'    diabetes_duration = 24,
-#'    hba1c = 9.9,
-#'    hypertension_treatment = 1,
-#'    log_albtocreatratio = 4.577,
-#'    non_hdl = 2.793,
-#'    income_less_18000 = 1,
-#'    physical_activity_inactive = 0,
-#'    physical_activity_partially_active = 0,
-#'    previous_atrial_f = 0,
-#'    pulse_pressure = 67,
-#'    retinopathy = 1,
-#'    smoking_status_smoker = 0,
-#'    smoking_status_ex_smoker = 0
+#'   age = 71,
+#'   diabetes_duration = 24,
+#'   hba1c = 9.9,
+#'   hypertension_treatment = 1,
+#'   log_albtocreatratio = 4.577,
+#'   non_hdl = 2.793,
+#'   income_less_18000 = 1,
+#'   physical_activity_inactive = 0,
+#'   physical_activity_partially_active = 0,
+#'   previous_atrial_f = 0,
+#'   pulse_pressure = 67,
+#'   retinopathy = 1,
+#'   smoking_status_smoker = 0,
+#'   smoking_status_ex_smoker = 0
 #' )
-predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment, log_albtocreatratio, non_hdl, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, pulse_pressure, retinopathy, smoking_status_smoker, smoking_status_ex_smoker) {
-  args <- match.call() |>
-    as.list() |>
-    names()
-  args <- args[-1]
+predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment, log_albtocreatratio, non_hdl, income_less_18000, physical_activity_inactive, physical_activity_partially_active, previous_atrial_f, pulse_pressure, retinopathy, smoking_status_smoker, smoking_status_ex_smoker, .test_variables = TRUE) {
+  if (.test_variables) {
+    args <- match.call() |>
+      as.list() |>
+      names()
+    args <- args[-1]
 
-  # test that all parameters are numeric
-  are_numeric <- sapply(args, \(v, envir) is.numeric(get(v, envir)), envir = environment())
-  if (!all(are_numeric)) {
-    not_numeric <- sapply(args[!are_numeric], \(x) paste("`", x, "`", sep = ""))
-    error_message <- cli::format_error(message = "{.pkg {not_numeric}} parameter{?s} must be numeric")
-    stop(error_message)
-  }
+    # test that all parameters are numeric
+    are_numeric <- sapply(args, \(v, envir) is.numeric(get(v, envir)), envir = environment())
+    if (!all(are_numeric)) {
+      not_numeric <- sapply(args[!are_numeric], \(x) paste("`", x, "`", sep = ""))
+      error_message <- cli::format_error(message = "{.pkg {not_numeric}} parameter{?s} must be numeric")
+      stop(error_message)
+    }
 
-  # test that variables are dichotomous
-  dichotomous_variables <- c("hypertension_treatment", "income_less_18000", "physical_activity_inactive", "physical_activity_partially_active", "previous_atrial_f", "retinopathy", "smoking_status_smoker", "smoking_status_ex_smoker")
-  are_dichotomous <- sapply(dichotomous_variables, function(v, envir) all(get(v, envir) %in% c(0, 1)), envir = environment())
-  if (!all(are_dichotomous)) {
-    not_dichotomous <- sapply(dichotomous_variables[!are_dichotomous], \(x) paste("`", x, "`", sep = ""))
-    error_message <- cli::format_error(message = "{.pkg {not_dichotomous}} parameter{?s} must be dichotomous")
-    stop(error_message)
+    # test that variables are dichotomous
+    dichotomous_variables <- c("hypertension_treatment", "income_less_18000", "physical_activity_inactive", "physical_activity_partially_active", "previous_atrial_f", "retinopathy", "smoking_status_smoker", "smoking_status_ex_smoker")
+    are_dichotomous <- sapply(dichotomous_variables, function(v, envir) all(get(v, envir) %in% c(0, 1)), envir = environment())
+    if (!all(are_dichotomous)) {
+      not_dichotomous <- sapply(dichotomous_variables[!are_dichotomous], \(x) paste("`", x, "`", sep = ""))
+      error_message <- cli::format_error(message = "{.pkg {not_dichotomous}} parameter{?s} must be dichotomous")
+      stop(error_message)
+    }
   }
 
   # firstly we center the values with their mean
