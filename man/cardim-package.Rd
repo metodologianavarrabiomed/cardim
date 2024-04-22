@@ -9,7 +9,7 @@
 This package is a set of tools that allow the user to properly predict the cardiovascular risk of new patients using the CARDIM-model definition. Even more it have tools to obtain the external validation results. The discrimination is calculated witht he Harrell's c-index and the calibration with calibration plots.
 }
 \author{
-\strong{Maintainer}: Methodology unit Navarrabiomed [funder, reviewer]
+\strong{Maintainer}: Methodology unit Navarrabiomed \email{metodologia.navarrabiomed@navarra.es} [funder, reviewer]
 
 Authors:
 \itemize{

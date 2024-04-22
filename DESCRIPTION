@@ -26,5 +26,5 @@ Imports:
 Authors@R: c(
     person("Asier", "Ballesteros Domínguez", , "asier.ballesteros.dominguez@navarra.es", role = c("aut", "ctb"),
            comment = c(ORCID = "0000-0002-2195-4669")),
-    person("Methodology unit", "Navarrabiomed", role = c("cre", "fnd", "rev"))
+    person("Methodology unit", "Navarrabiomed", ,"metodologia.navarrabiomed@navarra.es", role = c("cre", "fnd", "rev"))
   )
