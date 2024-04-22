@@ -45,7 +45,22 @@ The risk can be calculated by using the `predict_males` function as follows.
 ``` r
 library(cardim)
 
-male <- data.frame(age = 71, income_less_18000 = 1, diabetes_duration = 24, hba1c = 9.9, hypertension_treatment = 1, log_albtocreatratio = 4.577, non_hdl = 2.793, physical_activity_inactive = 0, physical_activity_partially_active = 0, previous_atrial_f = 0, pulse_pressure = 67, retinopathy = 1, smoking_status_smoker = 0, smoking_status_ex_smoker = 0)
+male <- data.frame(
+  age = 71, 
+  income_less_18000 = 1, 
+  diabetes_duration = 24, 
+  hba1c = 9.9, 
+  hypertension_treatment = 1, 
+  log_albtocreatratio = 4.577, 
+  non_hdl = 2.793, 
+  physical_activity_inactive = 0, 
+  physical_activity_partially_active = 0, 
+  previous_atrial_f = 0, 
+  pulse_pressure = 67, 
+  retinopathy = 1, 
+  smoking_status_smoker = 0, 
+  smoking_status_ex_smoker = 0
+)
 
 cardim::predict_males(
   age = male$age, 
@@ -68,7 +83,22 @@ cardim::predict_males(
 For the sake of simplicity we assume a female patient with the same characteristics and calculate the risk using the function `predict_females`.
 
 ``` r
-female <- data.frame(age = 71, income_less_18000 = 1, diabetes_duration = 24, hba1c = 9.9, hypertension_treatment = 1, log_albtocreatratio = 4.577, non_hdl = 2.793, physical_activity_inactive = 0, physical_activity_partially_active = 0, previous_atrial_f = 0, pulse_pressure = 67, retinopathy = 1, smoking_status_smoker = 0, smoking_status_ex_smoker = 0)
+female <- data.frame(
+  age = 71, 
+  income_less_18000 = 1,
+  diabetes_duration = 24, 
+  hba1c = 9.9, 
+  hypertension_treatment = 1, 
+  log_albtocreatratio = 4.577, 
+  non_hdl = 2.793, 
+  physical_activity_inactive = 0,
+  physical_activity_partially_active = 0, 
+  previous_atrial_f = 0, 
+  pulse_pressure = 67, 
+  retinopathy = 1, 
+  smoking_status_smoker = 0, 
+  smoking_status_ex_smoker = 0
+)
 
 cardim::predict_females(
   age = female$age, 
