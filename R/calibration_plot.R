@@ -21,7 +21,7 @@
 #'
 #' @return a calibration plot for the given data
 #'
-#' @importFrom dplyr group_by mutate n distinct arrange bind_rows
+#' @importFrom dplyr group_by_at group_map bind_rows
 #' @importFrom tibble tibble
 #' @importFrom survival survfit Surv
 #'
@@ -58,8 +58,8 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
       c(
         "*" = "{.arg surv} variable must inherits from Surv",
         "i" = "{.arg surv} variable should be created using `survival::Surv` function"
-        )
       )
+    )
   }
 
   if (!is.null(variable_type_error)) {
@@ -71,22 +71,26 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
   }
 
   # generate the calibration plot data
-  df_deciles <- data.frame(predictions = data$pred, outcomes = data$surv[, "status"], time = time) %>%
-    dplyr::mutate(bin = dplyr::ntile(predictions, n_bins))
+  df_deciles <- data.frame(predictions = data$pred, outcomes = data$surv[, "status"], time = time)
+  df_deciles$bin <- dplyr::ntile(df_deciles$predictions, n_bins)
 
   df_predicted <- df_deciles |>
-    dplyr::group_by(bin) |>
-    dplyr::mutate(
-      n = dplyr::n(),
-      bin_pred = mean(predictions, na.rm = TRUE),
-      mean_bin_obs = mean(outcomes, na.rm = TRUE),
-      se = sqrt((bin_pred * (1 - bin_pred)) / n)
-    ) |>
-    dplyr::distinct(bin, n, bin_pred, se, mean_bin_obs) |>
-    dplyr::arrange(bin)
+    dplyr::group_by_at(dplyr::vars("bin")) |>
+    dplyr::group_map(~ {
+      bin_pred <- mean(.x$predictions, na.rm = TRUE)
+      tibble::tibble(
+        bin = .y$bin,
+        bin_pred = bin_pred,
+        mean_bin_obs = mean(.x$outcomes, na.rm = TRUE),
+        se = sqrt((bin_pred * (1 - bin_pred)) / length(.x)),
+      )
+    }) |>
+    dplyr::bind_rows()
+
+  df_predicted <- df_predicted[order(df_predicted$bin), ]
 
   df_observed <- df_deciles |>
-    dplyr::group_by(bin) |>
+    dplyr::group_by_at(dplyr::vars("bin")) |>
     dplyr::group_map(~ {
       .x$surv_obj <- survival::Surv(.x$time, .x$outcomes)
       km <- survival::survfit(surv_obj ~ 1, data = .x)
@@ -100,8 +104,9 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
       )
     }) |>
     dplyr::bind_rows()
+
   out <- dplyr::left_join(df_predicted, df_observed, by = "bin")
-  names(out) <- c("bin", "n", "predicted", "se", "mean_bin_obs", "observed", "se_observed")
+  names(out) <- c("bin", "predicted", "se", "mean_bin_obs", "observed", "se_observed")
 
   out$ll <- out$observed - 1.96 * out$se_observed
   out$ul <- out$observed + 1.96 * out$se_observed
@@ -127,27 +132,27 @@ calibration_plot <- function(data, time = 5, n_bins = 10, xlim = 1, ylim = 1) {
       )
   }
 
-  gg <- out %>%
+  gg <- out |>
     ggplot2::ggplot() +
     ggplot2::scale_y_continuous(limits = c(0, xlim)) +
     ggplot2::scale_x_continuous(limits = c(0, ylim)) +
     ggplot2::expand_limits(x = 0, y = 0) +
     ggplot2::geom_abline(linetype = "dashed") +
     ggplot2::geom_point(
-      ggplot2::aes(x = predicted, y = observed),
+      ggplot2::aes(x = out$predicted, y = out$observed),
       size = 2.5,
       color = "#00BFC4",
       stroke = 0.5,
       show.legend = FALSE
     ) +
     ggplot2::geom_errorbar(
-      ggplot2::aes(x = predicted, y = observed, ymin = ll, ymax = ul),
+      ggplot2::aes(x = out$predicted, y = out$observed, ymin = out$ll, ymax = out$ul),
       linewidth = 1,
       color = "#00BFC4",
       width = 0.01
     ) +
     ggplot2::geom_smooth(
-      ggplot2::aes(x = predicted, y = observed),
+      ggplot2::aes(x = out$predicted, y = out$observed),
       weight = 0.5,
       linewidth = 0.6,
       color = "#00BFC4",

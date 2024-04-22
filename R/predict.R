@@ -30,7 +30,7 @@
 #' @return cardim predictions for the given cohort
 #'
 #' @importFrom cli format_message cli_abort format_error
-#' @importFrom dplyr mutate select bind_rows left_join
+#' @importFrom dplyr select left_join all_of
 #'
 #' @export
 #'
@@ -133,48 +133,46 @@ predict <- function(data) {
   data_males <- subset(data, data$sex == "Male")
   data_females <- subset(data, data$sex == "Female")
 
-  # calculate the predictions in males
-  pred_males <- data_males |>
-    dplyr::mutate(pred = predict_males(
-      age = age,
-      diabetes_duration = diabetes_duration,
-      hba1c = hba1c,
-      hypertension_treatment = hypertension_treatment,
-      log_albtocreatratio = log_albtocreatratio,
-      non_hdl = non_hdl,
-      income_less_18000 = income_less_18000,
-      physical_activity_inactive = physical_activity_inactive,
-      physical_activity_partially_active = physical_activity_partially_active,
-      previous_atrial_f = previous_atrial_f,
-      pulse_pressure = pulse_pressure,
-      retinopathy = retinopathy,
-      smoking_status_smoker = smoking_status_smoker,
-      smoking_status_ex_smoker = smoking_status_ex_smoker
-    )) |>
-    dplyr::select(id, pred)
+  data_males$pred <- predict_males(
+      age = data_males$age,
+      diabetes_duration = data_males$diabetes_duration,
+      hba1c = data_males$hba1c,
+      hypertension_treatment = data_males$hypertension_treatment,
+      log_albtocreatratio = data_males$log_albtocreatratio,
+      non_hdl = data_males$non_hdl,
+      income_less_18000 = data_males$income_less_18000,
+      physical_activity_inactive = data_males$physical_activity_inactive,
+      physical_activity_partially_active = data_males$physical_activity_partially_active,
+      previous_atrial_f = data_males$previous_atrial_f,
+      pulse_pressure = data_males$pulse_pressure,
+      retinopathy = data_males$retinopathy,
+      smoking_status_smoker = data_males$smoking_status_smoker,
+      smoking_status_ex_smoker = data_males$smoking_status_ex_smoker
+    )
 
-  # calculate the prediction in females
-  pred_females <- data_females |>
-    dplyr::mutate(pred = predict_females(
-      age = age,
-      diabetes_duration = diabetes_duration,
-      hba1c = hba1c,
-      hypertension_treatment = hypertension_treatment,
-      log_albtocreatratio = log_albtocreatratio,
-      non_hdl = non_hdl,
-      income_less_18000 = income_less_18000,
-      physical_activity_inactive = physical_activity_inactive,
-      physical_activity_partially_active = physical_activity_partially_active,
-      previous_atrial_f = previous_atrial_f,
-      pulse_pressure = pulse_pressure,
-      retinopathy = retinopathy,
-      smoking_status_smoker = smoking_status_smoker,
-      smoking_status_ex_smoker = smoking_status_ex_smoker
-    )) |>
-    dplyr::select(id, pred)
+  pred_males <- data_males |> dplyr::select(dplyr::all_of(c("id", "pred")))
+
+  data_females$pred <- predict_females(
+      age = data_females$age,
+      diabetes_duration = data_females$diabetes_duration,
+      hba1c = data_females$hba1c,
+      hypertension_treatment = data_females$hypertension_treatment,
+      log_albtocreatratio = data_females$log_albtocreatratio,
+      non_hdl = data_females$non_hdl,
+      income_less_18000 = data_females$income_less_18000,
+      physical_activity_inactive = data_females$physical_activity_inactive,
+      physical_activity_partially_active = data_females$physical_activity_partially_active,
+      previous_atrial_f = data_females$previous_atrial_f,
+      pulse_pressure = data_females$pulse_pressure,
+      retinopathy = data_females$retinopathy,
+      smoking_status_smoker = data_females$smoking_status_smoker,
+      smoking_status_ex_smoker = data_females$smoking_status_ex_smoker
+    )
+
+  pred_females <- data_females |> dplyr::select(dplyr::all_of(c("id", "pred")))
 
   # merge males and females into one table
-  pred_results <- dplyr::bind_rows(pred_females, pred_males)
+  pred_results <- rbind(pred_females, pred_males)
 
   # returns the original data table with the predictions joined
   return(data |> dplyr::left_join(pred_results, by = "id"))
