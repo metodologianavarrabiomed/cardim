@@ -61,7 +61,7 @@ predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment,
     if (!all(are_numeric)) {
       not_numeric <- sapply(args[!are_numeric], \(x) paste("`", x, "`", sep = ""))
       error_message <- cli::format_error(message = "{.pkg {not_numeric}} parameter{?s} must be numeric")
-      stop(error_message)
+      cli::cli_abort(error_message)
     }
 
     # test that variables are dichotomous
@@ -70,7 +70,7 @@ predict_males <- function(age, diabetes_duration, hba1c, hypertension_treatment,
     if (!all(are_dichotomous)) {
       not_dichotomous <- sapply(dichotomous_variables[!are_dichotomous], \(x) paste("`", x, "`", sep = ""))
       error_message <- cli::format_error(message = "{.pkg {not_dichotomous}} parameter{?s} must be dichotomous")
-      stop(error_message)
+      cli::cli_abort(error_message)
     }
   }
 
