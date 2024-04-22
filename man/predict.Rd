@@ -7,33 +7,32 @@
 predict(data)
 }
 \arguments{
-\item{data}{`data.frame` or `tibble` where all the patients data is stored}
+\item{data}{\code{data.frame} or \code{tibble} where all the patients data is stored}
 }
 \value{
 cardim predictions for the given cohort
 }
 \description{
-Calculates the cardim model predictions by using the [predict_males()] and [predict_females()] functions.
-The `data.frame` must have the following structure.
-
-| Variable | Type |
-|--------|-----|
-| Id | numeric or string  |
-| sex | "Male" or "Female"  |
-| Age, years | numeric  |
-| Income less than \eqn{18000}€ | dichotomic |
-| Diabetes duration, years | numeric |
-| hba1c, \eqn{\%} | numeric |
-| Hypertension treatment at baseline | dichotomic |
-| Logarithm of albumine creatinine ratio, log(mg/g) | numeric |
-| \eqn{\tqx{Total cholesterol} - \text{hdl cholesterol}}, mmol/L | numeric |
-| Physical activity, inactive | dichotomic |
-| Physical activity, partially active | dichotomic |
-| Atrial fibrillation at baseline | dichotomic |
-| \eqn{\text{Systolic blood pressure} - \text{diastolic blood pressure}}, mmHg | numeric |
-| Retinopathy at baseline | dichotomic |
-| Smoking status, smoker | dichotomic |
-| Smoking status, ex-smoker | dichotomic |
+Calculates the cardim model predictions by using the \code{\link[=predict_males]{predict_males()}} and \code{\link[=predict_females]{predict_females()}} functions.
+The \code{data.frame} must have the following structure.\tabular{ll}{
+   \strong{Variable} \tab \strong{Type} \cr
+   Id \tab numeric or string \cr
+   sex \tab "Male" or "Female" \cr
+   Age, years \tab numeric \cr
+   Income less than \eqn{18000}€ \tab dichotomic \cr
+   Diabetes duration, years \tab numeric \cr
+   hba1c, \eqn{\%} \tab numeric \cr
+   Hypertension treatment at baseline \tab dichotomic \cr
+   Logarithm of albumine creatinine ratio, log(mg/g) \tab numeric \cr
+   \eqn{\text{Total cholesterol} - \text{hdl cholesterol}}, mmol/L \tab numeric \cr
+   Physical activity, inactive \tab dichotomic \cr
+   Physical activity, partially active \tab dichotomic \cr
+   Atrial fibrillation at baseline \tab dichotomic \cr
+   \eqn{\text{Systolic blood pressure} - \text{diastolic blood pressure}}, mmHg \tab numeric \cr
+   Retinopathy at baseline \tab dichotomic \cr
+   Smoking status, smoker \tab dichotomic \cr
+   Smoking status, ex-smoker \tab dichotomic \cr
+}
 }
 \examples{
 

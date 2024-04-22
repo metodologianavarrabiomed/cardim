@@ -5,7 +5,7 @@
 #' Calculates the cardim model predictions by using the [predict_males()] and [predict_females()] functions.
 #' The `data.frame` must have the following structure.
 #'
-#' | Variable | Type |
+#' | **Variable** | **Type** |
 #' |--------|-----|
 #' | Id | numeric or string  |
 #' | sex | "Male" or "Female"  |
@@ -24,6 +24,7 @@
 #' | Smoking status, smoker | dichotomic |
 #' | Smoking status, ex-smoker | dichotomic |
 #'
+#' @md
 #'
 #' @param data `data.frame` or `tibble` where all the patients data is stored
 #'
