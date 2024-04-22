@@ -1,21 +1,34 @@
-#' calculates the cardim model prediction for females given the needed parameters
+#' @title
+#' calculates the cardim females model prediction
+#'
+#' @description
+#' calculates the model prediction for the given parameters. The risk predictions
+#' are calculated as follows.
+#'
+#' \deqn{
+#' \text{prediction} = 1 - S_0(t)^{exp(\beta X)}
+#' }
+#'
+#' where \eqn{\beta} is the model coefficients and \eqn{S_0(t)} is \eqn{1 - \lambda_0(t)} that
+#' is the cumulative incidence at the time \eqn{t}.
 #'
 #' @param age Age in years
 #' @param diabetes_duration Diabetes duration in years
-#' @param hba1c HbA1c in %
+#' @param hba1c HbA1c in \%
 #' @param hypertension_treatment if the patient has an active hypertension treatment at baseline, 1 = yes, 0 = no
 #' @param log_albtocreatratio logarithm of the albumine creatinine ratio in log(mg/g)
-#' @param non_hdl $total cholesterol - hdl cholesterol$ in mmol/L
+#' @param non_hdl \eqn{\text{total cholesterol} - \text{hdl cholesterol}} in mmol/L
 #' @param income_less_18000 if the patient is in the category `income_less_18000`, 1 = yes, 0 = no
 #' @param physical_activity_inactive if the patient is in the category `inactive`, 1 = yes, 0 = no
 #' @param physical_activity_partially_active if the patient is in the category `partially_inactive`, 1 = yes , 0 = no
 #' @param previous_atrial_f if the patient had atrial fibrillation at baseline, 1 = yes, 0 = no
-#' @param pulse_pressure $systolic blood pressure - diastolic blood pressure$ in mmHg
+#' @param pulse_pressure \eqn{\text{systolic blood pressure} - \text{diastolic blood pressure}} in mmHg
 #' @param retinopathy if the patient had retinopathy at baseline, 1 = yes, 0 = no
 #' @param smoking_status_smoker if the patient is in the category `smoker`, 1 = yes, 0 = no
 #' @param smoking_status_ex_smoker if the patient is in the category `ex-smoker`, 1 = yes, 0 = no
 #'
 #' @return model prediction for the given parameters
+#'
 #' @export
 #'
 #' @examples

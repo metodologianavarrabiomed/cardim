@@ -2,7 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{predict}
 \alias{predict}
-\title{predicts the cardim model predictions for the given data}
+\title{calculates the cardim model predictions}
 \usage{
 predict(data)
 }
@@ -10,10 +10,30 @@ predict(data)
 \item{data}{`data.frame` or `tibble` where all the patients data is stored}
 }
 \value{
-cardim predictions
+cardim predictions for the given cohort
 }
 \description{
-predicts the cardim model predictions for the given data
+Calculates the cardim model predictions by using the [predict_males()] and [predict_females()] functions.
+The `data.frame` must have the following structure.
+
+| Variable | Type |
+|--------|-----|
+| Id | numeric or string  |
+| sex | "Male" or "Female"  |
+| Age, years | numeric  |
+| Income less than \eqn{18000}€ | dichotomic |
+| Diabetes duration, years | numeric |
+| hba1c, \eqn{\%} | numeric |
+| Hypertension treatment at baseline | dichotomic |
+| Logarithm of albumine creatinine ratio, log(mg/g) | numeric |
+| \eqn{\tqx{Total cholesterol} - \text{hdl cholesterol}}, mmol/L | numeric |
+| Physical activity, inactive | dichotomic |
+| Physical activity, partially active | dichotomic |
+| Atrial fibrillation at baseline | dichotomic |
+| \eqn{\text{Systolic blood pressure} - \text{diastolic blood pressure}}, mmHg | numeric |
+| Retinopathy at baseline | dichotomic |
+| Smoking status, smoker | dichotomic |
+| Smoking status, ex-smoker | dichotomic |
 }
 \examples{
 

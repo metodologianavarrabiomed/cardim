@@ -2,8 +2,7 @@
 % Please edit documentation in R/harrell_c_index.R
 \name{harrell_c_index}
 \alias{harrell_c_index}
-\title{this function is a wrapper for the `Hmisc::rcorr.cens` function of the `Hmisc`
-package.}
+\title{Harrell's c-index calculation}
 \usage{
 harrell_c_index(data)
 }
@@ -14,8 +13,7 @@ harrell_c_index(data)
 the Harrell's c-index for the given data
 }
 \description{
-this function is a wrapper for the `Hmisc::rcorr.cens` function of the `Hmisc`
-package.
+Wrapper for the [Hmisc::rcorr.cens()] function of the `Hmisc` package.
 }
 \examples{
 set.seed(123)
