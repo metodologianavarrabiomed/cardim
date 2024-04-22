@@ -15,7 +15,7 @@
 #' | hba1c, \eqn{\%} | numeric |
 #' | Hypertension treatment at baseline | dichotomic |
 #' | Logarithm of albumine creatinine ratio, log(mg/g) | numeric |
-#' | \eqn{\tqx{Total cholesterol} - \text{hdl cholesterol}}, mmol/L | numeric |
+#' | \eqn{\text{Total cholesterol} - \text{hdl cholesterol}}, mmol/L | numeric |
 #' | Physical activity, inactive | dichotomic |
 #' | Physical activity, partially active | dichotomic |
 #' | Atrial fibrillation at baseline | dichotomic |
