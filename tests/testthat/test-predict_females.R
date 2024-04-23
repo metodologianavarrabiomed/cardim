@@ -559,3 +559,48 @@ testthat::test_that("checks multiple non-dichotomous variables", {
   "`hypertension_treatment`, `income_less_18000`, and `previous_atrial_f` parameters must be dichotomous"
   )
 })
+
+testthat::test_that("substitutes the NA", {
+  data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
+  female <- data[3, ]
+
+  testthat::expect_no_error(
+    predict_females(
+      age = female$age,
+      diabetes_duration = female$diabetes_duration,
+      hba1c = NA,
+      hypertension_treatment = female$hypertension_treatment,
+      log_albtocreatratio = female$log_albtocreatratio,
+      non_hdl = female$non_hdl,
+      income_less_18000 = female$income_less_18000,
+      physical_activity_inactive = NA,
+      physical_activity_partially_active = female$physical_activity_partially_active,
+      previous_atrial_f = female$previous_atrial_f,
+      pulse_pressure = female$pulse_pressure,
+      retinopathy = female$retinopathy,
+      smoking_status_smoker = female$smoking_status_smoker,
+      smoking_status_ex_smoker = female$smoking_status_ex_smoker
+    )
+  )
+
+  testthat::expect_false(
+    is.na(
+      predict_females(
+        age = female$age,
+        diabetes_duration = female$diabetes_duration,
+        hba1c = NA,
+        hypertension_treatment = female$hypertension_treatment,
+        log_albtocreatratio = female$log_albtocreatratio,
+        non_hdl = female$non_hdl,
+        income_less_18000 = female$income_less_18000,
+        physical_activity_inactive = NA,
+        physical_activity_partially_active = female$physical_activity_partially_active,
+        previous_atrial_f = female$previous_atrial_f,
+        pulse_pressure = female$pulse_pressure,
+        retinopathy = female$retinopathy,
+        smoking_status_smoker = female$smoking_status_smoker,
+        smoking_status_ex_smoker = female$smoking_status_ex_smoker
+      )
+    )
+  )
+})

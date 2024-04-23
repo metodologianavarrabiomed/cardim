@@ -4,10 +4,12 @@
 \alias{predict}
 \title{calculates the cardim model predictions}
 \usage{
-predict(data)
+predict(data, na_mean = TRUE)
 }
 \arguments{
 \item{data}{\code{data.frame} or \code{tibble} where all the patients data is stored}
+
+\item{na_mean}{substitute the missing values with \code{NA} (default: \code{TRUE})}
 }
 \value{
 cardim predictions for the given cohort

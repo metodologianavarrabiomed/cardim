@@ -27,6 +27,7 @@
 #' @md
 #'
 #' @param data `data.frame` or `tibble` where all the patients data is stored
+#' @param na_mean substitute the missing values with `NA` (default: `TRUE`)
 #'
 #' @return cardim predictions for the given cohort
 #'
@@ -57,7 +58,7 @@
 #'   smoking_status_ex_smoker = c(0, 0, 0)
 #'   )
 #' )
-predict <- function(data) {
+predict <- function(data, na_mean = TRUE) {
   # checks that the data argument is a data.frame/tibble
   if (!inherits(data, "data.frame")) {
     cli::cli_abort(
@@ -69,7 +70,7 @@ predict <- function(data) {
   }
 
   # defines all the checks for each model variable
-  is_dichotomic <- \(x) is.numeric(x) && all(x %in% c(0, 1))
+  is_dichotomic <- \(x) is.numeric(x) && all(x %in% c(0, 1, NA))
   dichotomic_error <- \(x) cli::format_message("the variable {.arg {x}} must be dichotomic (0, 1)")
   numeric_error <- \(x) cli::format_message("the variable {.arg {x}} must be numeric")
 
@@ -120,17 +121,6 @@ predict <- function(data) {
   }
 
   # calculates the predictions
-  # TODO:
-  #   - [ ] what do we do with NA?
-  #     - replace them with the mean value in the variable?
-  #     - ignore that patient and return NA in its prediction
-  #     - allow the user to decide?
-  #
-  # To start we will set the mean value of the patient but will be executed
-  # inside the prediction function for males and females. Therefore no need to
-  # be worried at this point.
-  #
-  # for each row we need to estimate the prediction
   data_males <- subset(data, data$sex == "Male")
   data_females <- subset(data, data$sex == "Female")
 
@@ -149,6 +139,7 @@ predict <- function(data) {
       retinopathy = data_males$retinopathy,
       smoking_status_smoker = data_males$smoking_status_smoker,
       smoking_status_ex_smoker = data_males$smoking_status_ex_smoker,
+      na_mean = na_mean,
       .test_variables = FALSE
     )
 
@@ -169,6 +160,7 @@ predict <- function(data) {
       retinopathy = data_females$retinopathy,
       smoking_status_smoker = data_females$smoking_status_smoker,
       smoking_status_ex_smoker = data_females$smoking_status_ex_smoker,
+      na_mean = na_mean,
       .test_variables = FALSE
     )
 

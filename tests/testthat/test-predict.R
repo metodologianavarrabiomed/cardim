@@ -36,3 +36,41 @@ testthat::test_that("`data` variables have the expected type", {
   testthat::expect_error(cardim::predict(data), "the variable \\`id\\` must be numeric or character")
 
 })
+
+testthat::test_that("the `NA` substitution to the mean value works", {
+  data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
+
+  # generate random indexes
+  set.seed(123)
+  num_nas <- 8
+  rows <- sample(nrow(data), num_nas, replace = TRUE)
+  cols <- sample(ncol(data), num_nas, replace = TRUE)
+
+  for (idx in 1:num_nas) {
+    data[rows[idx], cols[idx]] <- NA
+  }
+
+  testthat::expect_no_error(predict(data))
+
+  res <- predict(data)
+  testthat::expect_false(any(is.na(res$pred)))
+})
+
+testthat::test_that("not substituting the NA works", {
+  data <- readRDS(testthat::test_path("fixtures", "data_example.rds"))
+
+  # generate random indexes
+  set.seed(123)
+  num_nas <- 3
+  rows <- sample(nrow(data), num_nas, replace = TRUE)
+  cols <- sample(ncol(data), num_nas, replace = TRUE)
+
+  for (idx in 1:num_nas) {
+    data[rows[idx], cols[idx]] <- NA
+  }
+
+  testthat::expect_no_error(predict(data, FALSE))
+
+  res <- predict(data, FALSE)
+  testthat::expect_false(all(is.na(res$pred)))
+})
