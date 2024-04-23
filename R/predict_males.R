@@ -26,6 +26,7 @@
 #' @param retinopathy if the patient had retinopathy at baseline, 1 = yes, 0 = no
 #' @param smoking_status_smoker if the patient is in the category `smoker`, 1 = yes, 0 = no
 #' @param smoking_status_ex_smoker if the patient is in the category `ex-smoker`, 1 = yes, 0 = no
+#' @param na_mean substitute the missing values with `NA` (default: `TRUE`)
 #' @param .test_variables if the function should test the arguments type. (could lead to errors)
 #'
 #' @return model prediction for the given parameters
