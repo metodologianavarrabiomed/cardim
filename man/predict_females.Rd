@@ -19,6 +19,7 @@ predict_females(
   retinopathy,
   smoking_status_smoker,
   smoking_status_ex_smoker,
+  na_mean = TRUE,
   .test_variables = TRUE
 )
 }
@@ -50,6 +51,8 @@ predict_females(
 \item{smoking_status_smoker}{if the patient is in the category `smoker`, 1 = yes, 0 = no}
 
 \item{smoking_status_ex_smoker}{if the patient is in the category `ex-smoker`, 1 = yes, 0 = no}
+
+\item{na_mean}{substitute the missing values with `NA` (default: `TRUE`)}
 
 \item{.test_variables}{if the function should test the arguments type. (could lead to errors)}
 }
