@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>/404.html</loc>
+  </url>
+  <url>
+    <loc>/authors.html</loc>
+  </url>
+  <url>
+    <loc>/index.html</loc>
+  </url>
+  <url>
+    <loc>/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>/reference/calibration_plot.html</loc>
+  </url>
+  <url>
+    <loc>/reference/cardim-package.html</loc>
+  </url>
+  <url>
+    <loc>/reference/harrell_c_index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/predict.html</loc>
+  </url>
+  <url>
+    <loc>/reference/predict_females.html</loc>
+  </url>
+  <url>
+    <loc>/reference/predict_males.html</loc>
+  </url>
+</urlset>
