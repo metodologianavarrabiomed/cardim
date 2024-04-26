@@ -2,7 +2,7 @@
 
 export(calibration_plot)
 export(harrell_c_index)
-export(predict)
+export(predict_cardim)
 export(predict_females)
 export(predict_males)
 importFrom(Hmisc,rcorr.cens)

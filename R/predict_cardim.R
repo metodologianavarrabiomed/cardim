@@ -38,7 +38,7 @@
 #'
 #' @examples
 #'
-#' predict(
+#' predict_cardim(
 #'   tibble::tibble(
 #'   id = c(1,2,3),
 #'   sex = c("Male", "Female", "Female"),
@@ -58,7 +58,7 @@
 #'   smoking_status_ex_smoker = c(0, 0, 0)
 #'   )
 #' )
-predict <- function(data, na_mean = TRUE) {
+predict_cardim <- function(data, na_mean = TRUE) {
   # checks that the data argument is a data.frame/tibble
   if (!inherits(data, "data.frame")) {
     cli::cli_abort(
